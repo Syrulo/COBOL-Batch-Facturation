@@ -42,6 +42,7 @@
        RELEASE   (COMMIT)  -
        EXPLAIN   (NO)
 /*
+//* Étape 2bis : Suppression éventuelle du fichier d’extraction
 //DELDEX   EXEC PGM=IDCAMS
 //SYSPRINT DD SYSOUT=*
 //SYSIN    DD *
