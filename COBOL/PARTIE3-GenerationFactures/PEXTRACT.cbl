@@ -1,33 +1,33 @@
-//* ==========================================================
-//* PARTIE 3 - Extraction des commandes et génération des factures
-//* Programme : PEXTRACT
-//* Objectif : Extraire les commandes depuis DB2 et générer un
-//*            fichier plat PROJET.EXTRACT.DATA
-//* Entrées : Tables DB2 ORDERS, ITEMS, PRODUCTS, EMPLOYEES,
-//*           CUSTOMERS, DEPTS
-//* Sorties : Fichier plat PROJET.EXTRACT.DATA
-//* Remarques :
-//* - Les données sont mises dans ENREXTRACT pour le fichier
-//* - Un sous-programme gère la date en toutes lettres
-//* ==========================================================
+*> ==========================================================
+*> PARTIE 3 - Extraction des commandes et génération des factures
+*> Programme : PEXTRACT
+*> Objectif : Extraire les commandes depuis DB2 et générer un
+*>            fichier plat PROJET.EXTRACT.DATA
+*> Entrées : Tables DB2 ORDERS, ITEMS, PRODUCTS, EMPLOYEES,
+*>           CUSTOMERS, DEPTS
+*> Sorties : Fichier plat PROJET.EXTRACT.DATA
+*> Remarques :
+*> - Les données sont mises dans ENREXTRACT pour le fichier
+*> - Un sous-programme gère la date en toutes lettres
+*> ==========================================================
 
        ID DIVISION.                                                     
        PROGRAM-ID. PEXTRACT.                                            
-//* Environment Division : configuration des fichiers et décimales                                                                        
+*> Environment Division : configuration des fichiers et décimales                                                                        
        ENVIRONMENT DIVISION.                                            
        CONFIGURATION SECTION.                                           
        SPECIAL-NAMES.                                                   
            DECIMAL-POINT IS COMMA.                                      
-//* Input-Output Section : définition du fichier d’extraction                                                                        
+*> Input-Output Section : définition du fichier d’extraction                                                                        
        INPUT-OUTPUT SECTION.                                            
        FILE-CONTROL.                                                    
            SELECT FEXTRACT ASSIGN TO DEXTRACT                           
                            ORGANIZATION IS SEQUENTIAL                   
                            FILE STATUS IS WS-STATUS.                    
-//* Data Division : définition des enregistrements du fichier                                                                        
+*> Data Division : définition des enregistrements du fichier                                                                        
        DATA DIVISION.                                                   
        FILE SECTION.                                                    
-//* FD FEXTRACT : chaque enregistrement correspond à une commande / ligne                                                                        
+*> FD FEXTRACT : chaque enregistrement correspond à une commande / ligne                                                                        
        FD FEXTRACT                                                      
            RECORDING MODE F                                             
            DATA RECORD IS ENREXTRACT.                                   
@@ -58,7 +58,7 @@
           05 EXT-ZIP             PIC X(5).                              
           05 EXT-DNAME           PIC X(20).                             
           05 EXT-DNAME-LEN       PIC 9(4).                              
-//* Working-Storage : déclarations SQL et curseur                                                                      
+*> Working-Storage : déclarations SQL et curseur                                                                      
        WORKING-STORAGE SECTION.                                         
                                                                         
            EXEC SQL INCLUDE SQLCA END-EXEC.                             
@@ -74,9 +74,9 @@
            EXEC SQL INCLUDE CUSTOMER END-EXEC.                          
                                                                         
            EXEC SQL INCLUDE DEPTS END-EXEC.                             
-//* Déclaration du curseur C1 pour récupérer toutes les données
-//* Ordre : O_NO, S_NO, C_NO, O_DATE, P_NO, QUANTITY, PRICE,
-//* DESCRIPTION, EMPLOYEE, CUSTOMER, DEPT                                                                       
+*> Déclaration du curseur C1 pour récupérer toutes les données
+*> Ordre : O_NO, S_NO, C_NO, O_DATE, P_NO, QUANTITY, PRICE,
+*> DESCRIPTION, EMPLOYEE, CUSTOMER, DEPT                                                                       
            EXEC SQL DECLARE C1 CURSOR FOR                               
                 SELECT O.O_NO, O.S_NO, O.C_NO, O.O_DATE,                
                        I.P_NO, I.QUANTITY, I.PRICE,                     
@@ -94,21 +94,21 @@
            END-EXEC.                                                    
                                                                         
        77 WS-STATUS  PIC 99 VALUE 0.                                    
-//* Procedure Division : étapes principales                                                                        
+*> Procedure Division : étapes principales                                                                        
        PROCEDURE DIVISION.                                              
-//* Étape 1000 : Initialisation et ouverture du fichier d’extraction                                                                        
+*> Étape 1000 : Initialisation et ouverture du fichier d’extraction                                                                        
        1000-DEBUT.                                                      
                                                                         
            EXEC SQL SET CURRENT SQLID='API12' END-EXEC                  
                                                                         
            OPEN OUTPUT FEXTRACT                                         
            .                                                            
-//* Étape 2000 : Ouverture du curseur DB2                                                                       
+*> Étape 2000 : Ouverture du curseur DB2                                                                       
        2000-OPEN-C1.                                                    
                                                                         
            EXEC SQL OPEN C1 END-EXEC                                    
            .                                                            
-//* Étape 3000 : Boucle de FETCH / traitement des enregistrements                                                                       
+*> Étape 3000 : Boucle de FETCH / traitement des enregistrements                                                                       
        3000-FETCH-LOOP.                                                 
                                                                         
            PERFORM UNTIL SQLCODE = 100                                  
@@ -166,12 +166,12 @@
                                                                         
            PERFORM 5000-PROG-FIN                                        
            .                                                            
-//* Étape 4000 : Fermeture du curseur DB2                                                                        
+*> Étape 4000 : Fermeture du curseur DB2                                                                        
        4000-CLOSE-C1.                                                   
                                                                         
            EXEC SQL CLOSE C1 END-EXEC                                   
            .                                                            
-//* Étape 5000 : Fermeture du fichier et fin du programme                                                                        
+*> Étape 5000 : Fermeture du fichier et fin du programme                                                                        
        5000-PROG-FIN.                                                   
                                                                         
            CLOSE FEXTRACT                                               
