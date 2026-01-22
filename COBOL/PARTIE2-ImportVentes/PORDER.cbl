@@ -98,8 +98,7 @@
        LINKAGE SECTION.                                                 
                                                                         
        PROCEDURE DIVISION.
-
-*> Ouverture des fichiers de ventes et lecture initiale                                                                        
+                                                                       
        1000-DEBUT.                                                      
                                                                         
            OPEN INPUT  FVENTEAS                                         
