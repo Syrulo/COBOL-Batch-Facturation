@@ -15,7 +15,8 @@
                                                                         
        ENVIRONMENT DIVISION.                                            
        INPUT-OUTPUT SECTION.                                            
-       FILE-CONTROL.                                                    
+       FILE-CONTROL.
+*> Définition du fichier DDDEVISE utilisé pour récupérer le taux de conversion
            SELECT FDEVISE ASSIGN TO DDDEVISE                            
                           ORGANIZATION IS INDEXED                       
                           ACCESS MODE IS RANDOM                         
@@ -38,33 +39,36 @@
        77 WS-STATUS       PIC 99 VALUE 0.                               
                                                                         
        LINKAGE SECTION.                                                 
-                                                                        
+*> Variables d’entrée et sortie                                                                      
        01 LS-DEVISE       PIC X(2).                                     
        01 LS-PRICE        PIC X(6).                                     
        01 LS-RESULT       PIC 9(3)V99.                                  
                                                                         
        PROCEDURE DIVISION USING LS-DEVISE LS-PRICE LS-RESULT.           
-                                                                        
-           PERFORM 1000-DEBUT.                                          
-           PERFORM 2000-TRAITEMENT.                                     
+*> Début du sous-programme : ouverture du fichier des taux                                                                      
+           PERFORM 1000-DEBUT.
+*> Traitement principal : lecture du fichier, calcul du prix converti
+           PERFORM 2000-TRAITEMENT.
+*> Fin du sous-programme : fermeture du fichier
            PERFORM 3000-FIN.                                            
            GOBACK                                                       
            .                                                            
                                                                         
        1000-DEBUT.                                                      
-                                                                        
+*> Ouverture du fichier des taux de conversion                                                                       
            OPEN INPUT FDEVISE                                           
            .                                                            
                                                                         
        2000-TRAITEMENT.                                                 
-                                                                        
-           MOVE LS-DEVISE TO DEV-DEVI                                   
-                                                                        
+*> Déplacement du code devise fourni dans la clé du fichier FDEVISE                                                                      
+           MOVE LS-DEVISE TO DEV-DEVI
+*> Lecture du fichier FDEVISE pour récupérer le taux correspondant                                                                       
            READ FDEVISE                                                 
-                                                                        
+*> Si devise inconnue, on garde le prix inchangé                                                                        
                INVALID KEY                                              
                    COMPUTE LS-RESULT ROUNDED =                          
-                       FUNCTION NUMVAL-C(LS-PRICE)                      
+                       FUNCTION NUMVAL-C(LS-PRICE)
+*> Sinon, on multiplie par le taux de conversion et on limite à 999.99
                NOT INVALID KEY                                          
                    IF FUNCTION NUMVAL-C(LS-PRICE) * DEV-TAUX > 999.99   
                        MOVE 999.99 TO LS-RESULT                         
@@ -77,6 +81,6 @@
            .                                                            
                                                                         
        3000-FIN.                                                        
-                                                                        
+*> Fermeture du fichier des taux de conversion                                                                        
            CLOSE FDEVISE                                                
            .                                                            
