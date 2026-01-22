@@ -1,5 +1,4 @@
-# Projet Mainframe COBOL / JCL / DB2  
-## Gestion de commandes et génération de factures
+# Projet Mainframe COBOL / JCL / DB2 - Gestion de commandes et génération de factures
 
 Projet réalisé dans un cadre académique sous IBM z/OS  
 Projet de fin de formation, réalisé en binôme pour une soutenance.
@@ -8,16 +7,8 @@ Projet de fin de formation, réalisé en binôme pour une soutenance.
 
 ## Présentation générale
 
-Ce projet a été réalisé en fin de formation Mainframe.  
-Il met en œuvre une chaîne batch complète sous z/OS, depuis
-l’alimentation des données jusqu’à la génération de factures clients.
-
-Le projet couvre l’ensemble du cycle batch :
-- intégration de données
-- traitement métier
-- accès DB2
-- génération de fichiers plats
-- production de factures
+Ce projet met en œuvre une chaîne batch complète sous z/OS, depuis l’alimentation des données jusqu’à la génération de factures clients.  
+Le projet couvre l’ensemble du cycle batch : intégration de données, traitement métier, accès DB2, génération de fichiers plats et production de factures.
 
 ---
 
@@ -33,42 +24,24 @@ Le projet couvre l’ensemble du cycle batch :
 
 ---
 
-## Organisation du projet
-
-### Programmes COBOL
-
-- PARTIE1-AjoutNouveauxProduits
-- PARTIE2-ImportVentes  
-- PARTIE3-GenerationFactures  
-
-Chaque répertoire correspond à une étape fonctionnelle du projet.
-
-### JCL
-
-- PARTIE1-AjoutNouveauxProduits.jcl  
-- PARTIE2-ImportVentes.jcl  
-- P3GENFAC.jcl  
-- JFACTURE-Compilation.jcl  
-- JFACTURE-Execution.jcl  
-
-Les JCL assurent la compilation, le bind DB2 et l’exécution des programmes.
-
----
-
 ## PARTIE 1 – Ajout de nouveaux produits
 
 ### Description
 
-Cette étape permet d’intégrer de nouveaux produits dans la base DB2
-à partir d’un fichier plat.
+Objectif :
 
-Les traitements réalisés sont :
-- lecture du fichier d’entrée
-- formatage des descriptions
-- gestion des prix
-- insertion des données en base DB2
+- Lire un fichier plat contenant de nouveaux produits
+- Formater les descriptions
+- Convertir les prix si nécessaire
+- Insérer les données dans une table DB2
 
-Cette partie alimente les données produits utilisées dans les étapes suivantes.
+Programmes COBOL :
+- PNEWPROD.cbl  
+- PFORMAT.cbl  
+- PDEVISE.cbl  
+
+JCL associé :
+- JNEWPRO.jcl
 
 ---
 
@@ -76,45 +49,35 @@ Cette partie alimente les données produits utilisées dans les étapes suivante
 
 ### Description
 
-Cette étape permet l’import des ventes à partir de fichiers plats.
+Objectif :
 
-Les traitements réalisés sont :
-- lecture des fichiers de ventes
-- contrôle et préparation des données
-- mise en cohérence avec les tables DB2 existantes
-- préparation des informations nécessaires à la facturation
+- Importer les ventes depuis des fichiers plats
+- Préparer les données nécessaires à la facturation
+- Appliquer des règles de formatage (dates, textes)
 
----
+Programmes COBOL :
+- PORDER.cbl  
+- PFDATE.cbl  
 
-## PARTIE 3 – Génération des factures
-
-La troisième partie correspond à la chaîne de facturation.
-Elle est composée de plusieurs programmes batch exécutés séquentiellement.
+JCL associé :
+- JIMPORT.jcl
 
 ---
+
+## PARTIE 3 – Extraction des commandes et génération des factures
 
 ### Étape 3.1 – Extraction des commandes (PEXTRACT)
 
-Objectif :
-- extraire les données depuis les tables DB2
-- consolider les informations clients, produits et employés
-- générer un fichier plat intermédiaire destiné à la facturation
+Objectif :
 
-Tables DB2 utilisées :
-- ORDERS
-- ITEMS
-- PRODUCTS
-- EMPLOYEES
-- CUSTOMERS
-- DEPTS
-
-Fichier généré :
-- PROJET.EXTRACT.DATA
+- Extraire les données depuis les tables DB2 (ORDERS, ITEMS, PRODUCTS, EMPLOYEES, CUSTOMERS, DEPTS)
+- Générer un fichier plat intermédiaire destiné à la facturation : PROJET.EXTRACT.DATA
+- Consolider les informations clients, produits et employés
 
 Programme COBOL :
 - PEXTRACT.cbl
 
-JCL :
+JCL associé :
 - JEXTRACT.jcl
 
 ---
@@ -122,17 +85,12 @@ JCL :
 ### Étape 3.2 – Génération des factures (PFACTURE)
 
 Objectif :
-- lire le fichier PROJET.EXTRACT.DATA
-- générer les factures clients au format batch
-- effectuer les calculs financiers
 
-Traitements réalisés :
-- calcul des montants
-- application de la TVA (paramétrable via SYSIN)
-- calcul des commissions
-- totalisation des montants
-- mise en page des factures
-- conversion de la date en toutes lettres via un sous-programme
+- Lire le fichier PROJET.EXTRACT.DATA
+- Générer les factures clients au format batch
+- Calculer les montants (sous-total, TVA paramétrable via SYSIN, commission, total)
+- Mise en page des factures
+- Conversion de la date en toutes lettres via un sous-programme
 
 Fichier généré :
 - PROJET.FACTURES.DATA
@@ -141,7 +99,7 @@ Programmes COBOL :
 - PFACTURE.cbl
 - PDATESTR.cbl
 
-JCL :
+JCL associé :
 - JFACTCMP.jcl
 - JFACTRUN.jcl
 
@@ -151,17 +109,15 @@ JCL :
 
 Ce projet a été réalisé en binôme dans un cadre pédagogique.
 
-Les travaux ont porté sur :
-- l’analyse fonctionnelle
-- la conception batch
-- le développement COBOL
-- l’écriture des JCL
-- l’exploitation DB2
-- les tests et la validation des traitements
+Travaux réalisés :
 
+- Analyse fonctionnelle et conception batch
+- Développement COBOL
+- Écriture des JCL de compilation, bind et exécution
+- Exploitation DB2
+- Tests et validation des traitements
 ---
 
 ## Remarque
 
-Ce projet est fourni à titre pédagogique  
-Il illustre des pratiques courantes en environnement Mainframe z/OS.
+Ce projet est fourni à titre pédagogique et illustre des pratiques courantes en environnement Mainframe z/OS.
