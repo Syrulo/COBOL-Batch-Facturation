@@ -25,7 +25,7 @@
        01  LS-STRING     PIC X(30).                                     
                                                                         
        PROCEDURE DIVISION USING LS-STRING.                              
-                                                                        
+*> Boucle caractère par caractère pour mettre la première lettre en majuscule après un espace                                                                        
            PERFORM VARYING CPT FROM 1 BY 1 UNTIL CPT >                  
                    FUNCTION LENGTH(LS-STRING)                           
               IF WS-SPACE = 'Y'                                         
@@ -41,9 +41,9 @@
                  MOVE 'N' TO WS-SPACE                                   
               END-IF                                                    
            END-PERFORM                                                  
-                                                                        
+*> Remise du texte formaté dans la variable d’entrée                                                                        
            MOVE WS-RESULT TO LS-STRING                                  
-                                                                        
+*> Réinitialisation du flag                                                                    
            MOVE 'Y' TO WS-SPACE                                         
                                                                         
            GOBACK.                                                      
