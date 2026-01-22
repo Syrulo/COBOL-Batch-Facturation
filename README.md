@@ -51,9 +51,13 @@ JCL associé :
 
 Objectif :
 
-- Importer les ventes depuis des fichiers plats
+- Importer les ventes depuis des fichiers plats Europe et Asie
 - Préparer les données nécessaires à la facturation
 - Appliquer des règles de formatage (dates, textes)
+- Insérer/mettre à jour les tables DB2 correspondantes
+
+Tables DB2 utilisées :
+ORDERS, ITEMS, CUSTOMERS, PRODUCTS
 
 Programmes COBOL :
 - PORDER.cbl  
