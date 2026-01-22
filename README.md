@@ -26,14 +26,18 @@ Le projet couvre l’ensemble du cycle batch : intégration de données, trait
 
 ## PARTIE 1 – Ajout de nouveaux produits
 
-### Description
-
 Objectif :
 
-- Lire un fichier plat contenant de nouveaux produits
+- Lire un fichier CSV contenant de nouveaux produits
 - Formater les descriptions
 - Convertir les prix si nécessaire
-- Insérer les données dans une table DB2
+- Insérer les données dans la table DB2 correspondante
+
+Fichier d’entrée :
+- DDNEWPRO
+
+Table DB2 utilisée :
+- PRODUCTS
 
 Programmes COBOL :
 - PNEWPROD.cbl  
@@ -47,8 +51,6 @@ JCL associé :
 
 ## PARTIE 2 – Import des ventes
 
-### Description
-
 Objectif :
 
 - Importer les ventes depuis des fichiers plats Europe et Asie
@@ -56,8 +58,13 @@ Objectif :
 - Appliquer des règles de formatage (dates, textes)
 - Insérer/mettre à jour les tables DB2 correspondantes
 
+Fichiers d’entrée :
+- DVENTEEU → ventes Europe
+- DVENTEAS → ventes Asie
+
 Tables DB2 utilisées :
-ORDERS, ITEMS, CUSTOMERS, PRODUCTS
+- ORDERS, ITEMS, CUSTOMERS → mises à jour
+- PRODUCTS → consultée pour récupérer le prix
 
 Programmes COBOL :
 - PORDER.cbl  
