@@ -1,16 +1,12 @@
 *> ==========================================================
 *> PFDATE.cbl - Sous-programme de formatage des dates
-*> Partie 2 : Importation des ventes Europe et Asie
-*> 
 *> Objectif :
 *> - Transformer une date au format JJ/MM/AAAA en MM/JJ/AAAA
 *>   (utile pour l’insertion en DB2)
-*> 
 *> Entrée :
 *> - LS-STRING : date au format JJ/MM/AAAA (X(10))
 *> Sortie :
 *> - LS-STRING : date formatée en MM/JJ/AAAA (X(10))
-*> 
 *> Remarques :
 *> - Appelé depuis PORDER.cbl
 *> - Ce code est fourni à titre pédagogique
