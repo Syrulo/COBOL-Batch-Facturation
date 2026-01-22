@@ -14,7 +14,7 @@
 //* Remarques :
 //* - Étape préalable à la génération des factures
 //* - Une commande par page lors de la facturation
-//* - Sous-programme utilisé pour mettre la date en toutes lettres
+//* - Préparation des données pour la mise en forme des factures
 //* ==========================================================
 
 //API12P3 JOB (ACCT#),'THOMAS',MSGCLASS=H,REGION=4M,
