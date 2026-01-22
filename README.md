@@ -81,9 +81,20 @@ JCL associé :
 
 Objectif :
 
-- Extraire les données depuis les tables DB2 (ORDERS, ITEMS, PRODUCTS, EMPLOYEES, CUSTOMERS, DEPTS)
-- Générer un fichier plat intermédiaire destiné à la facturation : PROJET.EXTRACT.DATA
+- Extraire les commandes depuis les tables DB2
 - Consolider les informations clients, produits et employés
+- Générer un fichier plat intermédiaire destiné à la facturation
+
+Tables DB2 utilisées :
+- ORDERS
+- ITEMS
+- PRODUCTS
+- EMPLOYEES
+- CUSTOMERS
+- DEPTS
+
+Fichier de sortie :
+- PROJET.EXTRACT.DATA
 
 Programme COBOL :
 - PEXTRACT.cbl
