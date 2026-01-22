@@ -85,7 +85,7 @@
               END-UNSTRING.                                             
                                                                         
               MOVE P-NO TO P-P-NO                                       
-*> Décomposition de l’enregistrement CSV en champs internes                                                                       
+                                                                      
               CALL PFORMAT USING DESCRIPTION                            
                                                                         
               MOVE DESCRIPTION TO P-DESCRIPTION-TEXT                    
