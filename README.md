@@ -30,7 +30,7 @@ Objectif :
 
 - Lire un fichier CSV contenant de nouveaux produits
 - Formater les descriptions
-- Convertir les prix si nécessaire
+- Convertir les prix si nécessaire (via un fichier VSAM de taux de change)
 - Insérer les données dans la table DB2 correspondante
 
 Fichier d’entrée :
