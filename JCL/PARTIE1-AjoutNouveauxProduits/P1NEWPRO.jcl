@@ -1,11 +1,15 @@
 //* ==========================================================
 //* PARTIE 1 - Ajout des nouveaux produits
-//* Fichier : PARTIE1-AjoutNouveauxProduits.jcl
+//*
 //* Objectif : Traiter le fichier NEWPRODS et insérer les
-//*            données dans la base DB2 via PNEWPROD
+//* données dans la base DB2 via PNEWPROD
+//*
 //* Entrées : DDNEWPRO (fichier produits), DDDEVISE (mapping devises)
+//*
 //* Sorties : Tables DB2 PRODUCTS mises à jour
-//* Remarques : Utilisation des sous-programmes PFORMAT et PDEVISE
+//*
+//* Remarques : 
+//* - Utilisation des sous-programmes PFORMAT et PDEVISE
 //* ==========================================================
 
 //API12P1 JOB (ACCT#),'THOMAS',MSGCLASS=H,REGION=4M,
