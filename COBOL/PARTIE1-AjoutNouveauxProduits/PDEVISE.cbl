@@ -1,15 +1,21 @@
 *> ==========================================================
 *> PDEVISE.cbl - Sous-programme de conversion des prix
+*>
 *> Objectif : convertir un prix selon sa devise en dollars
+*>
 *> Entrées :
 *> - LS-DEVISE : code de la devise (X(2))
 *> - LS-PRICE  : prix en devise locale (X(6))
+*>
 *> Sortie :
 *> - LS-RESULT : prix converti en dollars (9(3)V99)
+*>
 *> Remarques :
 *> - Fichier DDDEVISE : mapping des devises
 *> - Gestion des devises inconnues : prix conservé sans conversion
+*> - Code fourni à titre pédagogique
 *> ==========================================================
+
        ID DIVISION.                                                     
        PROGRAM-ID. PDEVISE.                                             
                                                                         
