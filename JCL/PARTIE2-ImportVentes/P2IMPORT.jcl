@@ -2,7 +2,7 @@
 //* PARTIE 2 - Importation des ventes Europe et Asie
 //* 
 //* Objectif : Compiler, lier et exécuter PORDER pour importer
-//*            les ventes et mettre à jour les balances clients
+//* les ventes et mettre à jour les balances clients
 //*
 //* Entrées : DVENTEEU (ventes Europe), DVENTEAS (ventes Asie)
 //*
