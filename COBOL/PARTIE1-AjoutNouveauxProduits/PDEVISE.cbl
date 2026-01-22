@@ -55,7 +55,7 @@
            .                                                            
                                                                         
        1000-DEBUT.                                                      
-*> Ouverture du fichier des taux de conversion                                                                       
+                                                                     
            OPEN INPUT FDEVISE                                           
            .                                                            
                                                                         
@@ -81,6 +81,6 @@
            .                                                            
                                                                         
        3000-FIN.                                                        
-*> Fermeture du fichier des taux de conversion                                                                        
+                                                                       
            CLOSE FDEVISE                                                
            .                                                            
