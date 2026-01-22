@@ -1,10 +1,17 @@
 *> ==========================================================
 *> PFORMAT.cbl - Sous-programme de formatage des descriptions
+*>
 *> Objectif : mettre une majuscule au début de chaque mot
 *> et le reste en minuscules
+*>
 *> Entrée : DESCRIPTION (PIC X(30))
+*>
 *> Sortie : DESCRIPTION (modifiée)
+*>
+*> Remarques :
+*> - Code fourni à titre pédagogique
 *> ==========================================================
+
        ID DIVISION.                                                     
        PROGRAM-ID. PFORMAT.                                             
                                                                         
