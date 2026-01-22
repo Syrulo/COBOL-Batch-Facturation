@@ -1,3 +1,5 @@
+//* Compilation et linkedit du programme PFACTURE (génération factures)
+
 //API12C JOB (ACCT#),'THOMAS',MSGCLASS=H,REGION=4M,
 // CLASS=A,MSGLEVEL=(1,1),NOTIFY=&SYSUID,COND=(4,LT)
 //*
