@@ -13,7 +13,7 @@
 *> - LS-OUT-DATE-TEXT (X(20)) : date en toutes lettres
 *> 
 *> Remarques :
-*> - Ce code est fourni à titre pédagogique
+*> - Code fourni à titre pédagogique
 *> ==========================================================
   
        IDENTIFICATION DIVISION.                                         
