@@ -20,7 +20,7 @@
 *> 
 *> Remarques :
 *> - Les fichiers de ventes sont triés par N° de commande, client et employé
-*> - Ce code est fourni à titre pédagogique
+*> - Code fourni à titre pédagogique
 *> ==========================================================
        ID DIVISION.                                                     
        PROGRAM-ID. PORDER.                                              
