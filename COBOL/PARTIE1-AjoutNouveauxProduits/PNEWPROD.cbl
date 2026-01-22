@@ -15,8 +15,9 @@
 *> 
 *> Remarques :
 *> - Fichier DDDEVISE : mapping des devises pour PDEVISE
-*> - Ce code est fourni à titre pédagogique
+*> - Code fourni à titre pédagogique
 *> ==========================================================
+
        ID DIVISION.                                                     
        PROGRAM-ID. PNEWPROD.                                            
                                                                         
