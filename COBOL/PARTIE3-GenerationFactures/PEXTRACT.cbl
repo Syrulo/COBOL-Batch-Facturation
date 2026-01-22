@@ -1,14 +1,25 @@
 *> ==========================================================
-*> PARTIE 3 - Extraction des commandes et génération des factures
-*> Programme : PEXTRACT
-*> Objectif : Extraire les commandes depuis DB2 et générer un
-*>            fichier plat PROJET.EXTRACT.DATA
-*> Entrées : Tables DB2 ORDERS, ITEMS, PRODUCTS, EMPLOYEES,
-*>           CUSTOMERS, DEPTS
-*> Sorties : Fichier plat PROJET.EXTRACT.DATA
+*> PEXTRACT.cbl - Extraction des commandes et génération des fichiers factures
+*> Projet académique COBOL / Mainframe
+*> 
+*> Objectif :
+*> - Extraire les commandes depuis les tables DB2 ORDERS, ITEMS, PRODUCTS, EMPLOYEES, CUSTOMERS et DEPTS
+*> - Mettre les données dans un fichier plat PROJET.EXTRACT.DATA
+*> - Préparer les informations clients, produits et employés pour facturation
+*> 
+*> Entrées :
+*> - Tables DB2 : ORDERS, ITEMS, PRODUCTS, EMPLOYEES, CUSTOMERS, DEPTS
+*> 
+*> Sorties :
+*> - Fichier plat : PROJET.EXTRACT.DATA
+*> 
+*> Sous-programmes appelés :
+*> - Aucun spécifique (SQL FETCH utilisé pour extraire les données)
+*> 
 *> Remarques :
-*> - Les données sont mises dans ENREXTRACT pour le fichier
-*> - Un sous-programme gère la date en toutes lettres
+*> - Les données sont placées dans ENREXTRACT
+*> - Un sous-programme gère la date en toutes lettres si nécessaire
+*> - Le code est fourni à titre pédagogique
 *> ==========================================================
 
        ID DIVISION.                                                     
