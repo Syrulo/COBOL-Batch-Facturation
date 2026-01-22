@@ -143,6 +143,7 @@ Travaux réalisés :
 - Tests et validation des traitements
 ---
 
-## Remarque
+## Remarques
 
-Ce projet est fourni à titre pédagogique et illustre des pratiques courantes en environnement Mainframe z/OS.
+- Ce projet est fourni à titre pédagogique et illustre des pratiques courantes en environnement Mainframe z/OS.
+- Les fichiers de données (CSV, VSAM, résultats DB2) ne sont pas inclus, mais les programmes et JCL fournis permettent de comprendre et de suivre l'ensemble du traitement batch.
