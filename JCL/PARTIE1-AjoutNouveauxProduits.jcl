@@ -11,7 +11,7 @@
 //API12P1 JOB (ACCT#),'THOMAS',MSGCLASS=H,REGION=4M,
 //    CLASS=A,MSGLEVEL=(1,1),NOTIFY=&SYSUID,
 //    COND=(4,LT),TIME=(0,5)
-//*
+//* Définition de la bibliothèque de procédures
 //PROCLIB  JCLLIB ORDER=SDJ.FORM.PROCLIB
 //* Variables pour le programme
 //         SET SYSUID=API12,
