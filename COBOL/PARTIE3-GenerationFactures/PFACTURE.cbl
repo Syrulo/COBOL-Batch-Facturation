@@ -1,10 +1,24 @@
 *> ==========================================================
-*> PROGRAMME : PFACTURE
-*> Objectif : Générer des factures à partir de FEXTRACT
-*> Entrées : FEXTRACT (extrait de commandes)
-*> Sorties : FFACTURE (fichier plat 80 colonnes)
-*> Calculs : sous-total, taxes, commission, total
-*> Remarques : Appelle PDATESTR pour formater la date
+*> PFACTURE.cbl - Génération des factures à partir de FEXTRACT
+*> Projet académique COBOL / Mainframe
+*> 
+*> Objectif :
+*> - Lire le fichier FEXTRACT (extrait des commandes)
+*> - Générer un fichier plat FFACTURE (80 colonnes)
+*> - Calculer sous-total, taxes, commission et total
+*> - Appeler PDATESTR pour convertir la date en toutes lettres
+*> 
+*> Entrées :
+*> - FEXTRACT : fichier plat avec les commandes extraites
+*> 
+*> Sorties :
+*> - FFACTURE : fichier plat 80 colonnes pour les factures
+*> 
+*> Sous-programmes appelés :
+*> - PDATESTR : conversion de la date en texte complet
+*> 
+*> Remarques :
+*> - Code fourni à titre pédagogique
 *> ==========================================================
 
        ID DIVISION.                                                     
@@ -27,7 +41,8 @@
                                                                         
        DATA DIVISION.                                                   
        FILE SECTION.                                                    
-                                                                        
+
+*> Fichier des commandes extraites 
        FD FEXTRACT                                                      
            RECORDING MODE IS F.                                         
                                                                         
@@ -57,7 +72,8 @@
           05 EXT-ZIP             PIC X(5).                              
           05 EXT-DNAME           PIC X(20).                             
           05 EXT-DNAME-LEN       PIC 9(4).                              
-                                                                        
+
+*> Fichier de factures final 
        FD FFACTURE                                                      
            RECORDING MODE IS F                                          
            DATA RECORD IS ENRFACTURE.                                   
@@ -97,41 +113,53 @@
                                                                         
        01 EOF                PIC X  VALUE 'N'.                          
                                                                         
-       PROCEDURE DIVISION.                                              
-                                                                        
+       PROCEDURE DIVISION.
+
+*> ==========================================================
+*> Début du programme : ouverture fichiers et lecture TVA
+*> ==========================================================
        1000-DEBUT.                                                      
                                                                         
            OPEN INPUT  FEXTRACT                                         
                 OUTPUT FFACTURE                                         
                                                                         
-           ACCEPT WS-TVA-SYSIN FROM SYSIN                               
-                                                                        
+           ACCEPT WS-TVA-SYSIN FROM SYSIN
+
+*> ==========================================================
+*> Lecture et traitement des commandes
+*> ==========================================================                                                                        
            PERFORM UNTIL EOF = 'Y'                                      
                READ FEXTRACT                                            
                   AT END                                                
                      MOVE 'Y' TO EOF                                    
-                  NOT AT END                                            
+                  NOT AT END
+*> Si nouvelle commande, on génère le footer précédent et l’en-tête du nouveau
                      IF EXT-ONO NOT = WS-ONO                            
-                        IF WS-ONO NOT = 0                               
+                        IF WS-ONO NOT = 0
                            PERFORM 3200-CALCUL-TOTAL                    
                            PERFORM 4000-FOOTER                          
-                        END-IF                                          
+                        END-IF
                         PERFORM 2000-HEADER                             
                         MOVE EXT-ONO TO WS-ONO                          
-                     END-IF                                             
+                     END-IF
+*> Calcul du total de la ligne et affichage du produit
                      PERFORM 3100-CALCUL-LINE                           
                      PERFORM 3000-PRODUIT                               
                END-READ                                                 
-           END-PERFORM                                                  
-                                                                        
+           END-PERFORM
+
+*> Calcul final et footer pour la dernière commande                                                                         
            IF WS-ONO NOT = 0                                            
                PERFORM 3200-CALCUL-TOTAL                                
                PERFORM 4000-FOOTER                                      
            END-IF                                                       
                                                                         
            PERFORM 5000-FIN                                             
-           .                                                            
-                                                                        
+           .
+
+*> ==========================================================
+*> 2000-HEADER : génération de l’entête de facture
+*> ==========================================================                                                                        
        2000-HEADER.                                                     
                                                                         
            MOVE SPACES TO ENRFACTURE                                    
@@ -241,8 +269,11 @@
                                                                         
            MOVE SPACES TO ENRFACTURE                                    
            WRITE ENRFACTURE                                             
-           .                                                            
-                                                                        
+           .
+
+*> ==========================================================
+*> 3000-PRODUIT : génération d’une ligne produit dans la facture
+*> ==========================================================                                                                     
        3000-PRODUIT.                                                    
                                                                         
            MOVE SPACES TO ENRFACTURE                                    
@@ -251,8 +282,9 @@
                                                                         
            MOVE EXT-DESCRIPTION TO ENRFACTURE(11:20)                    
                                                                         
-           MOVE EXT-QUANTITY TO ENRFACTURE(34:8)                        
-                                                                        
+           MOVE EXT-QUANTITY TO ENRFACTURE(34:8)
+
+*> Formatage du prix et ligne totale                                                                        
            MOVE EXT-PRICE TO EXT-PRICE-STR                              
                                                                         
            MOVE EXT-PRICE-STR                                           
@@ -266,13 +298,18 @@
            WRITE ENRFACTURE                                             
            .                                                            
                                                                         
-                                                                        
+*> ==========================================================
+*> 3100-CALCUL-LINE : calcul du total de la ligne et sous-total
+*> ==========================================================                                                                        
        3100-CALCUL-LINE.                                                
                                                                         
            COMPUTE WS-LINE-TOTAL = EXT-QUANTITY * EXT-PRICE             
            COMPUTE WS-SUB-TOTAL  = WS-SUB-TOTAL + WS-LINE-TOTAL         
-           .                                                            
-                                                                        
+           .
+
+*> ==========================================================
+*> 3200-CALCUL-TOTAL : calcul du total final avec taxes et commission
+*> ==========================================================                                                                        
        3200-CALCUL-TOTAL.                                               
                                                                         
            COMPUTE WS-TVA = FUNCTION NUMVAL-C(WS-TVA-SYSIN)             
@@ -281,8 +318,11 @@
            COMPUTE WS-COM-AFFI = EXT-COM * 100                          
            COMPUTE WS-COM-TOT = WS-SUB-TOTAL * EXT-COM                  
            COMPUTE WS-TOTAL = WS-SUB-TOTAL + WS-TVA-TOT                 
-           .                                                            
-                                                                        
+           .
+
+*> ==========================================================
+*> 4000-FOOTER : génération du pied de facture
+*> ==========================================================                                                                        
        4000-FOOTER.                                                     
                                                                         
            MOVE SPACES TO ENRFACTURE                                    
@@ -294,7 +334,9 @@
            MOVE SPACES TO ENRFACTURE                                    
            WRITE ENRFACTURE                                             
                                                                         
-           MOVE SPACES TO ENRFACTURE                                    
+           MOVE SPACES TO ENRFACTURE
+
+*> Affichage du sous-total
            MOVE 'SUB TOTAL : ' TO ENRFACTURE(40:12)                     
                                                                         
            MOVE WS-SUB-TOTAL TO WS-SUB-TOTAL-STR                        
@@ -307,7 +349,8 @@
            MOVE SPACES TO ENRFACTURE                                    
            WRITE ENRFACTURE                                             
                                                                         
-           MOVE SPACES TO ENRFACTURE                                    
+           MOVE SPACES TO ENRFACTURE
+*> Affichage de la TVA
            STRING                                                       
                'SALES TAXES (' DELIMITED BY SIZE                        
                WS-TVA-AFFI     DELIMITED BY SIZE                        
@@ -327,7 +370,8 @@
            MOVE SPACES TO ENRFACTURE                                    
            WRITE ENRFACTURE                                             
                                                                         
-           MOVE SPACES TO ENRFACTURE                                    
+           MOVE SPACES TO ENRFACTURE
+*> Affichage de la commission
            STRING                                                       
                'COMMISSION ('  DELIMITED BY SIZE                        
                WS-COM-AFFI     DELIMITED BY SIZE                        
@@ -347,7 +391,9 @@
            MOVE SPACES TO ENRFACTURE                                    
            WRITE ENRFACTURE                                             
                                                                         
-           MOVE SPACES TO ENRFACTURE                                    
+           MOVE SPACES TO ENRFACTURE
+
+*> Affichage du total final
            MOVE 'TOTAL :' TO ENRFACTURE(44:8)                           
                                                                         
            MOVE WS-TOTAL TO WS-TOTAL-STR                                
@@ -357,12 +403,16 @@
            WRITE ENRFACTURE                                             
                                                                         
            MOVE SPACES TO ENRFACTURE                                    
-           WRITE ENRFACTURE                                             
-                                                                        
+           WRITE ENRFACTURE
+
+*> Réinitialisation des totaux pour la commande suivante                                                                        
            MOVE ZEROS TO WS-TOTAL                                       
            MOVE ZEROS TO WS-SUB-TOTAL                                   
            .                                                            
-                                                                        
+
+*> ==========================================================
+*> 5000-FIN : fermeture fichiers et fin du programme
+*> ==========================================================
        5000-FIN.                                                        
            CLOSE FEXTRACT                                               
                  FFACTURE                                               
