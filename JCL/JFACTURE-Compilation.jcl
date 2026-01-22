@@ -4,16 +4,16 @@
 
 //API12C JOB (ACCT#),'THOMAS',MSGCLASS=H,REGION=4M,
 // CLASS=A,MSGLEVEL=(1,1),NOTIFY=&SYSUID,COND=(4,LT)
-//*
-//* ETAPE DE COMPILATION
-//*
+//* ----------------------------------------------------------
+//* Etape 1 : Compilation
+//* ----------------------------------------------------------
 //COMPIL     EXEC IGYWCL,PARM.COBOL=(ADV,OBJECT,LIB,TEST,APOST)
 //COBOL.SYSIN  DD DSN=API12.PROJET.SRC(PFACTURE),DISP=SHR
 //COBOL.SYSLIB DD DSN=CEE.SCEESAMP,DISP=SHR
 //             DD DSN=API12.COB.CPY,DISP=SHR
-//*
-//* ETAPE DE LINKEDIT
-//*
+//* ----------------------------------------------------------
+//* Etape 2 : Linkedit
+//* ----------------------------------------------------------
 //LKED.SYSLMOD DD DSN=API12.COB.LOAD,DISP=(SHR,KEEP,KEEP)
 //LKED.SYSIN   DD *
  NAME PFACTURE(R)
