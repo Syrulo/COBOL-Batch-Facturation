@@ -2,10 +2,13 @@
 //* PARTIE 3 - Extraction des commandes et génération des factures
 //*
 //* Objectif : Extraire les commandes depuis DB2, générer un fichier
-//*            d’extraction PROJET.EXTRACT.DATA et créer les factures
-//*            dans PROJET.FACTURES.DATA via PEXTRACT
+//* d’extraction PROJET.EXTRACT.DATA et créer les factures
+//* dans PROJET.FACTURES.DATA via PEXTRACT
+//*
 //* Entrées : Tables DB2 clients, commandes, produits
+//*
 //* Sorties : Fichier plat PROJET.EXTRACT.DATA, fichier factures
+//*
 //* Remarques :
 //* - TVA configurable via SYSIN
 //* - Une commande par page
