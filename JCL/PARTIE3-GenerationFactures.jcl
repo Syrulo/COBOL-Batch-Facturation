@@ -1,6 +1,6 @@
 //* ==========================================================
 //* PARTIE 3 - Extraction des commandes et génération des factures
-//* Fichier : PARTIE3-GenerationFactures.jcl
+//*
 //* Objectif : Extraire les commandes depuis DB2, générer un fichier
 //*            d’extraction PROJET.EXTRACT.DATA et créer les factures
 //*            dans PROJET.FACTURES.DATA via PEXTRACT
