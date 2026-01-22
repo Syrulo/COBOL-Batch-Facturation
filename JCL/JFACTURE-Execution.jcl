@@ -4,13 +4,22 @@
 
 //API12E   JOB (ACCT),'THOMAS',CLASS=A,MSGCLASS=H,NOTIFY=&SYSUID,
 //    TIME=(,1)
+//* ----------------------------------------------------------
+//* Bibliothèque contenant le programme compilé
+//* ----------------------------------------------------------
 //JOBLIB   DD DSN=API12.COB.LOAD,DISP=SHR
+//* ----------------------------------------------------------
+//* STEP01 : Suppression éventuelle du fichier factures existant
+//* ----------------------------------------------------------
 //STEP01   EXEC PGM=IDCAMS
 //SYSPRINT DD SYSOUT=*
 //SYSIN    DD *
   DELETE API12.PROJET.FACTURES.DATA PURGE
   SET MAXCC=0
 /*
+//* ----------------------------------------------------------
+//* STEP02 : Exécution du programme principal PFACTURE
+//* ----------------------------------------------------------
 //STEP02   EXEC PGM=PFACTURE,COND=(0,NE)
 //DEXTRACT DD DSN=API12.PROJET.EXTRACT.DATA,DISP=SHR
 //DFACTURE DD DSN=API12.PROJET.FACTURES.DATA,
