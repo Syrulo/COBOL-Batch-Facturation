@@ -104,20 +104,23 @@
                                                                         
        77 WS-STATUS  PIC 99 VALUE 0.                                    
                                                                     
-       PROCEDURE DIVISION.                                              
-                                                                     
+       PROCEDURE DIVISION. 
+
+*> Ouverture du fichier de sortie                                                                     
        1000-DEBUT.                                                      
                                                                         
            EXEC SQL SET CURRENT SQLID='API12' END-EXEC                  
                                                                         
            OPEN OUTPUT FEXTRACT                                         
-           .                                                            
-                                                                     
+           .
+
+*> Ouverture du curseur DB2                                                                      
        2000-OPEN-C1.                                                    
                                                                         
            EXEC SQL OPEN C1 END-EXEC                                    
-           .                                                            
-                                                                  
+           .  
+
+*> Boucle de lecture des commandes et écriture dans le fichier plat                                                                 
        3000-FETCH-LOOP.                                                 
                                                                         
            PERFORM UNTIL SQLCODE = 100                                  
@@ -134,8 +137,9 @@
                                                                         
              IF SQLCODE = 0                                             
                                                                         
-                 MOVE SPACES TO ENREXTRACT                              
-                                                                        
+                 MOVE SPACES TO ENREXTRACT 
+
+*> Transfert des champs DB2 vers l'enregistrement plat                                                                       
                  MOVE O-O-NO TO EXT-ONO                                 
                  MOVE O-S-NO TO EXT-SNO                                 
                  MOVE O-C-NO TO EXT-CNO                                 
@@ -174,8 +178,9 @@
            PERFORM 4000-CLOSE-C1                                        
                                                                         
            PERFORM 5000-PROG-FIN                                        
-           .                                                            
-                                                                     
+           .
+
+*> Fermeture du curseur DB2 et du fichier de sortie                                                                    
        4000-CLOSE-C1.                                                   
                                                                         
            EXEC SQL CLOSE C1 END-EXEC                                   
