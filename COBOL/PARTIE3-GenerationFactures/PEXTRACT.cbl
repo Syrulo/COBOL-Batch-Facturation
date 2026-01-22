@@ -19,7 +19,7 @@
 *> Remarques :
 *> - Les données sont placées dans ENREXTRACT
 *> - Un sous-programme gère la date en toutes lettres si nécessaire
-*> - Le code est fourni à titre pédagogique
+*> - code est fourni à titre pédagogique
 *> ==========================================================
 
        ID DIVISION.                                                     
