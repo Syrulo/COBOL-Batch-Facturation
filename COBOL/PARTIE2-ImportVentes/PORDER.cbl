@@ -97,16 +97,18 @@
                                                                         
        LINKAGE SECTION.                                                 
                                                                         
-       PROCEDURE DIVISION.                                              
-                                                                        
+       PROCEDURE DIVISION.
+
+*> Ouverture des fichiers de ventes et lecture initiale                                                                        
        1000-DEBUT.                                                      
                                                                         
            OPEN INPUT  FVENTEAS                                         
                        FVENTEEU                                         
                                                                         
            PERFORM 2100-LECTURE-F1                                      
-           PERFORM 2200-LECTURE-F2                                      
-                                                                        
+           PERFORM 2200-LECTURE-F2
+
+*> Boucle principale : fusion des ventes Europe/Asie selon le N° de commande                                                                      
            PERFORM UNTIL EOF-EU = 'Y' AND EOF-AS = 'Y'                  
                                                                         
                EVALUATE TRUE                                            
@@ -144,7 +146,7 @@
                      PERFORM 2200-LECTURE-F2                            
                                                                         
                   WHEN EU-NO = AS-NO                                    
-                                                                        
+*> Gestion des commandes identiques dans les deux fichiers                                                                   
                      MOVE AS-NO        TO O-O-NO                        
                      MOVE AS-DATE      TO O-O-DATE                      
                      MOVE AS-S-NO      TO O-S-NO                        
@@ -182,8 +184,9 @@
            END-PERFORM                                                  
                                                                         
            PERFORM 5000-FIN                                             
-           .                                                            
-                                                                        
+           . 
+
+*> Lecture fichiers AS/EU                                                                        
        2100-LECTURE-F1.                                                 
                                                                         
            READ FVENTEAS                                                
@@ -199,7 +202,7 @@
                  MOVE 'Y' TO EOF-EU                                     
               END-READ                                                  
               .                                                         
-                                                                        
+*> Insertion d’une commande et de ses items dans DB2                                                                                                                               
        3000-TRAITEMENT.                                                 
                                                                         
            CALL PFDATE USING O-O-DATE                                   
@@ -244,7 +247,7 @@
            END-IF                                                       
            .                                                            
                                                                         
-                                                                        
+*> Mise à jour du solde du client                                                                                                                                
        4000-BALANCE.                                                    
                                                                         
            COMPUTE WS-TOTAL = WS-PRICE-N * I-QUANTITY                   
