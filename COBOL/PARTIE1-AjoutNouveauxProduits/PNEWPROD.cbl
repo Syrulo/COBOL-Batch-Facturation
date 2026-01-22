@@ -69,7 +69,7 @@
            GOBACK.                                                      
                                                                         
        1000-DEBUT.                                                      
-*> Ouverture du fichier des nouveaux produits (DDNEWPRO)                                                                        
+                                                                      
               OPEN INPUT  FNEWPRO                                       
                                                                         
               READ FNEWPRO INTO WS-ENRPRO                               
@@ -116,7 +116,7 @@
               .                                                         
                                                                         
        3000-FIN.
-*> Fermeture du fichier des produits
+
               CLOSE FNEWPRO                                             
               .                                                         
                                 
