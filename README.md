@@ -108,14 +108,17 @@ JCL associé :
 
 Objectif :
 
-- Lire le fichier PROJET.EXTRACT.DATA
-- Générer les factures clients au format batch
-- Calculer les montants (sous-total, TVA paramétrable via SYSIN, commission, total)
+- Lire le fichier extrait des commandes (FEXTRACT)
+- Générer les factures clients au format batch (80 colonnes)
+- Calculer les montants : sous-total, TVA (paramétrable via SYSIN), commission, total
 - Mise en page des factures
 - Conversion de la date en toutes lettres via un sous-programme
 
-Fichier généré :
-- PROJET.FACTURES.DATA
+Fichier d’entrée :
+- FEXTRACT
+
+Fichier de sortie :
+- FFACTURE
 
 Programmes COBOL :
 - PFACTURE.cbl
