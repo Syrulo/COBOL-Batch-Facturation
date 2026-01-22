@@ -3,8 +3,11 @@
 //* 
 //* Objectif : Compiler, lier et exécuter PORDER pour importer
 //*            les ventes et mettre à jour les balances clients
+//*
 //* Entrées : DVENTEEU (ventes Europe), DVENTEAS (ventes Asie)
+//*
 //* Sorties : Tables DB2 ORDERS, ITEMS, CUSTOMERS mises à jour
+//*
 //* Remarques : 
 //* - Tri des fichiers par N° de commande, client et employé
 //* ==========================================================
