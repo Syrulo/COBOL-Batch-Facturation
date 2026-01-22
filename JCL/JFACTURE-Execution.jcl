@@ -1,3 +1,7 @@
+//* ==========================================================
+//* Exécution du programme PFACTURE (génération des factures)
+//* ==========================================================
+
 //API12E   JOB (ACCT),'THOMAS',CLASS=A,MSGCLASS=H,NOTIFY=&SYSUID,
 //    TIME=(,1)
 //JOBLIB   DD DSN=API12.COB.LOAD,DISP=SHR
