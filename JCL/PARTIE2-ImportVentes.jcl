@@ -1,11 +1,12 @@
 //* ==========================================================
 //* PARTIE 2 - Importation des ventes Europe et Asie
-//* Fichier : PARTIE2-ImportVentes.jcl
+//* 
 //* Objectif : Compiler, lier et exécuter PORDER pour importer
 //*            les ventes et mettre à jour les balances clients
 //* Entrées : DVENTEEU (ventes Europe), DVENTEAS (ventes Asie)
 //* Sorties : Tables DB2 ORDERS, ITEMS, CUSTOMERS mises à jour
-//* Remarques : Tri des fichiers par N° de commande, client et employé
+//* Remarques : 
+//* - Tri des fichiers par N° de commande, client et employé
 //* ==========================================================
 
 //API12P2 JOB (ACCT#),'THOMAS',MSGCLASS=H,REGION=4M,
