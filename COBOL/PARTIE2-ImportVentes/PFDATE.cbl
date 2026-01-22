@@ -32,12 +32,14 @@
                                                                         
        01  LS-STRING      PIC X(10).                                    
                                                                         
-       PROCEDURE DIVISION USING LS-STRING.                              
-                                                                        
+       PROCEDURE DIVISION USING LS-STRING.
+
+*> Découpage de la date en jour, mois et année                                                                       
            UNSTRING LS-STRING DELIMITED BY '/'                          
              INTO  JJ MM YYYY                                           
-           END-UNSTRING                                                 
-                                                                        
+           END-UNSTRING
+
+*> Recomposition de la date au format MM/JJ/AAAA                                                                        
            STRING MM '/' JJ '/' YYYY DELIMITED BY SIZE                  
              INTO LS-STRING                                             
            END-STRING                                                   
