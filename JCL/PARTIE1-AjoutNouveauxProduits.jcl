@@ -43,6 +43,7 @@
        RELEASE   (COMMIT)  -
        EXPLAIN   (NO)
 /*
+//* Étape 3 : Exécution du programme principal
 //STEPRUN  EXEC PGM=IKJEFT01,COND=(4,LT)
 //STEPLIB  DD   DSN=&SYSUID..COB.LOAD,DISP=SHR
 //SYSOUT   DD   SYSOUT=*,OUTLIM=1000
