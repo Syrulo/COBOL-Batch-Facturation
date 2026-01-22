@@ -115,7 +115,7 @@ Programme COBOL :
 - PEXTRACT.cbl
 
 JCL :
-- P3GENFAC.jcl
+- JEXTRACT.jcl
 
 ---
 
@@ -142,8 +142,8 @@ Programmes COBOL :
 - PDATESTR.cbl
 
 JCL :
-- JFACTURE-Compilation.jcl
-- JFACTURE-Execution.jcl
+- JFACTCMP.jcl
+- JFACTRUN.jcl
 
 ---
 
